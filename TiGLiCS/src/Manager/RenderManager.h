@@ -5,7 +5,6 @@
 #include <map>
 #include <list>
 #include <vector>
-using namespace Selene;
 namespace TiGLiCS{
 	namespace Manager{
 		/**
@@ -20,7 +19,7 @@ namespace TiGLiCS{
 			//-----クラス群--------------------------------
 			class CSprite2DManager{
 			public:
-				Renderer::Object::ISprite2D * pSpr;//スプライト
+				Selene::Renderer::Object::ISprite2D * pSpr;//スプライト
 				Sint32 TextureID;//テクスチャ
 				Sint32 Priority;//優先度
 				Sint32 DrawNum;//描画数
@@ -30,7 +29,7 @@ namespace TiGLiCS{
 			};
 			class CFontSprite2DManager{
 			public:
-				Renderer::Object::IFontSprite2D * pFontSpr;//スプライト
+				Selene::Renderer::Object::IFontSprite2D * pFontSpr;//スプライト
 				Sint32 FontID;//テクスチャ
 				Sint32 Priority;//優先度
 				Sint32 DrawNum;//描画数
@@ -40,7 +39,7 @@ namespace TiGLiCS{
 			};
 			class CPrimitive2DManager{
 			public:
-				Renderer::Object::IPrimitive2D * pPrimitive;//スプライト
+				Selene::Renderer::Object::IPrimitive2D * pPrimitive;//スプライト
 				Sint32 Priority;//優先度
 				Sint32 DrawNum;//描画数
 				Sint32 UnUsedFrame;//未使用フレーム数
@@ -49,7 +48,7 @@ namespace TiGLiCS{
 			};
 			class CLine2DManager{
 			public:
-				Renderer::Object::ILine2D * pLine;//スプライト
+				Selene::Renderer::Object::ILine2D * pLine;//スプライト
 				Sint32 Priority;//優先度
 				Sint32 DrawNum;//描画数
 				Sint32 UnUsedFrame;//未使用フレーム数
@@ -58,7 +57,7 @@ namespace TiGLiCS{
 			};
 			class CPoint2DManager{
 			public:
-				Renderer::Object::IPoint2D  * pPoint;//スプライト
+				Selene::Renderer::Object::IPoint2D  * pPoint;//スプライト
 				Sint32 Priority;//優先度
 				Sint32 DrawNum;
 				Sint32 UnUsedFrame;//未使用フレーム数
@@ -68,14 +67,14 @@ namespace TiGLiCS{
 
 			class CSceneManager{
 			public:
-				Scene::ISceneManager   * pScene;//シーン
+				Selene::Scene::ISceneManager   * pScene;//シーン
 				Sint32 Priority;//優先度
-				Math::Vector4D ClearColor;//初期化時の色
+				Selene::Math::Vector4D ClearColor;//初期化時の色
 				CSceneManager(Sint32 Priority){
 					this->Priority=Priority;
 				}
 				~CSceneManager(){SAFE_RELEASE(pScene);}
-				void SetSceneManager(Scene::ISceneManager   * pScene){
+				void SetSceneManager(Selene::Scene::ISceneManager   * pScene){
 					this->pScene=pScene;
 				}
 			};
@@ -99,7 +98,7 @@ namespace TiGLiCS{
 
 			Sint32 UnitPrimitiveSize2D;//この単位で2Dオブジェクト追加削除を行う。
 			Sint32 MaxActorNum;//最大アクター数 相手側で調整してもらう
-			CColor DefaultBackColor;
+			Selene::CColor DefaultBackColor;
 			static CRenderManager * Instance;
 			char str_buf[1024];//文字列生成用バッファ。コスト削減のため
 
@@ -129,11 +128,11 @@ namespace TiGLiCS{
 
 				シーンマネージャの作成を行う。戻り値はシーンマネージャへのポインタである。
 			*/
-			Scene::ISceneManager * CreateSceneManager(bool isPixelShaderEnable,Sint32 Priority);
+			Selene::Scene::ISceneManager * CreateSceneManager(bool isPixelShaderEnable,Sint32 Priority);
 
-			inline Scene::ISceneManager * GetSceneManager(){return (pSceneManager->pScene);}
+			inline Selene::Scene::ISceneManager * GetSceneManager(){return (pSceneManager->pScene);}
 
-			inline void SetBackgroundColor(CColor &col){DefaultBackColor=col;}
+			inline void SetBackgroundColor(Selene::CColor &col){DefaultBackColor=col;}
 			//2D系----------------------------------------------------------
 			//スプライト系
 			/**
@@ -146,7 +145,10 @@ namespace TiGLiCS{
 
 				2Dスプライトの描画を行う。描画される座標は自動的にテクスチャの中心となる。
 			*/
-			void DrawSprite(Math::Point2DF &Pos,Sint32 TextureID,Sint32 TexRectID,Sint32 Priority);//スプライト描画、回転なし
+			void DrawSprite(Selene::Math::Point2DF &Pos,
+				Sint32 TextureID,
+				Sint32 TexRectID,
+				Sint32 Priority);//スプライト描画、回転なし
 			
 			/**
 				@brief 2Dスプライト描画 回転あり
@@ -159,7 +161,11 @@ namespace TiGLiCS{
 
 				回転した2Dスプライトの描画を行う。描画される座標は自動的にテクスチャの中心となる。
 			*/
-			void DrawSprite(Math::Point2DF &Pos,Sint32 TextureID,Sint32 TexRectID,Sint32 Priority,Sint32 Angle);//スプライト描画
+			void DrawSprite(Selene::Math::Point2DF &Pos,
+				Sint32 TextureID,
+				Sint32 TexRectID,
+				Sint32 Priority,
+				Sint32 Angle);//スプライト描画
 
 			//テキスト系---------------------------------------------------------------------------
 			/**
@@ -174,7 +180,11 @@ namespace TiGLiCS{
 				2Dテキストの描画を行う。DrawPosが文字列の右上端となる。改行した場合正しい位置に描画できない。<br>
 				src , ... はprintfと同等の書式である。
 			*/
-			void DrawString(Math::Point2DF &DrawPos,CColor &col,Sint32 FontID,Sint32 Priority,const char * src,...);//文字列描画
+			void DrawString(Selene::Math::Point2DF &DrawPos,
+				Selene::CColor &col,
+				Sint32 FontID,
+				Sint32 Priority,
+				const char * src,...);//文字列描画
 
 			//プリミティブ系-------------------------------------------------------------------------
 			
@@ -189,7 +199,11 @@ namespace TiGLiCS{
 				
 				塗りつぶした3角形を描画する。頂点は時計回りにソートする必要がある。
 			*/
-			void FillTriangle(Math::Point2DF &Pos1,Math::Point2DF &Pos2,Math::Point2DF &Pos3,CColor &col,Sint32 Priority);//三角形塗りつぶし
+			void FillTriangle(Selene::Math::Point2DF &Pos1,
+				Selene::Math::Point2DF &Pos2,
+				Selene::Math::Point2DF &Pos3,
+				Selene::CColor &col,
+				Sint32 Priority);//三角形塗りつぶし
 			
 			/**
 				@brief 2D塗りつぶし四角形描画
@@ -200,7 +214,9 @@ namespace TiGLiCS{
 				
 				塗りつぶした長方形を描画する。
 			*/
-			void FillRect(Math::Rect2DF &pos,CColor &col,Sint32 Priority);//四角形塗りつぶし
+			void FillRect(Selene::Math::Rect2DF &pos,
+				Selene::CColor &col,
+				Sint32 Priority);//四角形塗りつぶし
 			
 			/**
 				@brief 2D塗りつぶし四角形描画 回転あり
@@ -212,7 +228,10 @@ namespace TiGLiCS{
 				
 				回転した塗りつぶした長方形を描画する。
 			*/
-			void FillRect(Math::Rect2DF &pos,CColor &col,Sint32 Priority,Sint32 Angle);//四角形角度付き
+			void FillRect(Selene::Math::Rect2DF &pos,
+				Selene::CColor &col,
+				Sint32 Priority,
+				Sint32 Angle);//四角形角度付き
 
 			/**
 				@brief 2D塗りつぶし円形描画
@@ -224,7 +243,10 @@ namespace TiGLiCS{
 				
 				塗りつぶした円を描画する。
 			*/
-			void FillCircle(Math::Point2DF &pos,float Radius,CColor &col,Sint32 Priority);//円塗りつぶし
+			void FillCircle(Selene::Math::Point2DF &pos,
+				float Radius,
+				Selene::CColor &col,
+				Sint32 Priority);//円塗りつぶし
 
 			/**
 				@brief 2D塗りつぶし多角形描画
@@ -237,7 +259,10 @@ namespace TiGLiCS{
 				複数の三角形が連続した物を描画する。多角形を描画する際は始点と終点をあわせる必要がある。<br>
 				頂点は時計回りに並んでいる必要がある。
 			*/
-			void FillPolygon(Math::Vector2D *posArray,Sint32 posNum,CColor &col,Sint32 Priority);//ポリゴン描画
+			void FillPolygon(Selene::Math::Vector2D *posArray,
+				Sint32 posNum,
+				Selene::CColor &col,
+				Sint32 Priority);//ポリゴン描画
 			
 			//ライン系-----------------------------------------------------------------------------------------
 			
@@ -250,7 +275,9 @@ namespace TiGLiCS{
 				
 				長方形を描画する。
 			*/
-			void DrawRect(Math::Rect2DF &pos,CColor &col,Sint32 Priority);//四角形
+			void DrawRect(Selene::Math::Rect2DF &pos,
+				Selene::CColor &col,
+				Sint32 Priority);//四角形
 			
 			/**
 				@brief 2D四角形描画 回転あり
@@ -262,7 +289,10 @@ namespace TiGLiCS{
 				
 				回転した長方形を描画する。
 			*/
-			void DrawRect(Math::Rect2DF &pos,CColor &col,Sint32 Priority,Sint32 Angle);//四角形角度付き
+			void DrawRect(Selene::Math::Rect2DF &pos,
+				Selene::CColor &col,
+				Sint32 Priority,
+				Sint32 Angle);//四角形角度付き
 			
 			/**
 				@brief 2D三角形描画
@@ -275,7 +305,11 @@ namespace TiGLiCS{
 				
 				3角形を描画する。頂点は時計回りにソートする必要がある。
 			*/
-			void DrawTriangle(Math::Point2DF &Pos1,Math::Point2DF &Pos2,Math::Point2DF &Pos3,CColor &col,Sint32 Priority);//三角形描画
+			void DrawTriangle(Selene::Math::Point2DF &Pos1,
+				Selene::Math::Point2DF &Pos2,
+				Selene::Math::Point2DF &Pos3,
+				Selene::CColor &col,
+				Sint32 Priority);//三角形描画
 
 			/**
 				@brief 2D線描画
@@ -287,7 +321,10 @@ namespace TiGLiCS{
 				
 				直線を描画する。
 			*/
-			void DrawLine(Math::Point2DF &Pos1,Math::Point2DF &Pos2,CColor &col,Sint32 Priority);//ライン描画
+			void DrawLine(Selene::Math::Point2DF &Pos1,
+				Selene::Math::Point2DF &Pos2,
+				Selene::CColor &col,
+				Sint32 Priority);//ライン描画
 
 			/**
 				@brief 2D多角形描画
@@ -300,7 +337,10 @@ namespace TiGLiCS{
 				複数の直線が連続した物を描画する。多角形を描画する際は始点と終点をあわせる必要がある。<br>
 				頂点は時計回りに並んでいる必要がある。
 			*/
-			void DrawPolygon(Math::Vector2D *posArray,Sint32 posNum,CColor &col,Sint32 Priority);//ポリゴン描画
+			void DrawPolygon(Selene::Math::Vector2D *posArray,
+				Sint32 posNum,
+				Selene::CColor &col,
+				Sint32 Priority);//ポリゴン描画
 			
 			/**
 				@brief 2D円形描画
@@ -312,7 +352,9 @@ namespace TiGLiCS{
 				
 				円を描画する。
 			*/
-			void DrawCircle(Math::Point2DF &pos,float Radius,CColor &col,Sint32 Priority);//円描画
+			void DrawCircle(Selene::Math::Point2DF &pos,
+				float Radius,
+				Selene::CColor &col,Sint32 Priority);//円描画
 
 			//ポイント系-----------------------------------------------------------------------------------------
 
@@ -325,7 +367,9 @@ namespace TiGLiCS{
 				
 				点を描画する。
 			*/
-			void DrawPoint(Math::Point2DF &Pos,CColor &col,Sint32 Priority);//ポイント描画
+			void DrawPoint(Selene::Math::Point2DF &Pos,
+				Selene::CColor &col,
+				Sint32 Priority);//ポイント描画
 
 			//ダミー---------------------------------------------------------------------------------------------
 

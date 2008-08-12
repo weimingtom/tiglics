@@ -327,10 +327,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-			<File
-				RelativePath=".\resource.rc"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="TiGLiCS"
@@ -479,14 +475,14 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="Collision"
+					Name="CollisionManager"
 					>
 					<File
-						RelativePath=".\src\Manager\Collision.cpp"
+						RelativePath=".\src\Manager\CollisionManager.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\src\Manager\Collision.h"
+						RelativePath=".\src\Manager\CollisionManager.h"
 						>
 					</File>
 				</Filter>

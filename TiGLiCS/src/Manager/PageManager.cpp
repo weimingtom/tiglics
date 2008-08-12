@@ -2,8 +2,9 @@
 #include "Engine/Engine.h"
 #include <map>
 using namespace std;
+using namespace Selene;
 using namespace TiGLiCS;
-using namespace Manager;
+using namespace TiGLiCS::Manager;
 
 CPageManager * CPageManager::Instance=new CPageManager();
 

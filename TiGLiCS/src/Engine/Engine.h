@@ -17,17 +17,17 @@ namespace TiGLiCS{
 		ほぼここから可能である。
 	*/
 	class  CEngine{	//シングルトンクラス
-		ICore						*pCore;			//コア
-		IGraphicCard				*pGraphicCard;	//グラフィックカード情報
-		Renderer::IRender			*pRender;		//レンダー
-		File::IFileManager			*pFileMgr;		//ファイルマネージャ
-		Peripheral::IMouse			*pMouse;		//マウスデバイス
-		Peripheral::IKeyboard		*pKeyboard;		//キーボードデバイス
-		Renderer::CTextureConfig	 Conf;			//テクスチャコンフィグ
+		Selene::ICore						*pCore;			//コア
+		Selene::IGraphicCard				*pGraphicCard;	//グラフィックカード情報
+		Selene::Renderer::IRender			*pRender;		//レンダー
+		Selene::File::IFileManager			*pFileMgr;		//ファイルマネージャ
+		Selene::Peripheral::IMouse			*pMouse;		//マウスデバイス
+		Selene::Peripheral::IKeyboard		*pKeyboard;		//キーボードデバイス
+		Selene::Renderer::CTextureConfig	Conf;			//テクスチャコンフィグ
 		
 
 
-		Math::Point2DI ScreenSize;//スクリーンサイズ
+		Selene::Math::Point2DI ScreenSize;//スクリーンサイズ
 		Sint32 FrameRate;
 
 		//デバッグ用変数
@@ -101,7 +101,7 @@ namespace TiGLiCS{
 
 		
 		//スクリーンサイズとフレームレート
-		Math::Point2DI GetScreenSize(){return ScreenSize;}
+		Selene::Math::Point2DI GetScreenSize(){return ScreenSize;}
 		Sint32 GetFrameRate(){return FrameRate;}
 
 		inline void End(){pCore->Exit();}//終了させる。
@@ -111,19 +111,19 @@ namespace TiGLiCS{
 
 		//各種オブジェクトへのポインタの取得
 		///Selene::ICoreを取得
-		inline ICore* GetICore(){return pCore;}
+		inline Selene::ICore* GetICore(){return pCore;}
 		///Selene::IGraphicを取得
-		inline IGraphicCard* GetIGraphicCard(){return pGraphicCard;}
+		inline Selene::IGraphicCard* GetIGraphicCard(){return pGraphicCard;}
 		///Selene::IRenderを取得
-		inline Renderer::IRender* GetIRender(){return pRender;}
+		inline Selene::Renderer::IRender* GetIRender(){return pRender;}
 		///テクスチャ設定を取得
-		inline Renderer::CTextureConfig *GetCTextureConfig(){return &Conf;}
+		inline Selene::Renderer::CTextureConfig *GetCTextureConfig(){return &Conf;}
 		///Selene::File::IFileManagerを取得
-		inline File::IFileManager* GetIFileManager(){return pFileMgr;}
+		inline Selene::File::IFileManager* GetIFileManager(){return pFileMgr;}
 		///Selene::Peripheral::IMouseを取得
-		inline Peripheral::IMouse* GetIMouse(){return pMouse;}
+		inline Selene::Peripheral::IMouse* GetIMouse(){return pMouse;}
 		///Selene::Peripheral::IKeyboardを取得
-		inline Peripheral::IKeyboard* GetIKeyboard(){return pKeyboard;}
+		inline Selene::Peripheral::IKeyboard* GetIKeyboard(){return pKeyboard;}
 		
 	};
 

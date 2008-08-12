@@ -1,6 +1,5 @@
 #pragma once
 #include "Base/Base.h"
-using namespace Selene;
 namespace TiGLiCS{
 	namespace Manager{
 		/**

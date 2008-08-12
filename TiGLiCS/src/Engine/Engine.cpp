@@ -1,7 +1,7 @@
 #include "TiGLiCSAll.h"
 #include <cstring>
 #include <typeinfo>
-
+using namespace Selene;
 using namespace TiGLiCS;
 
 float TiGLiCS::drand(void){

@@ -2,7 +2,7 @@
 #include "Base/Define.h"
 #include "Objects/Object.h"
 #include "Manager/FrameManager.h"
-#include "Manager/Collision.h"
+#include "Manager/CollisionManager.h"
 #include <map>
 #include <vector>
 
@@ -17,7 +17,7 @@ namespace TiGLiCS{
 	class  CPage{
 		Sint32 PageID;//ページID
 
-		CColor BackColor;//背景色
+		Selene::CColor BackColor;//背景色
 
 		Object::ProcessPriorityList ProcessQueue;	//処理順のリスト
 		Object::PtrPriorityList PtrQueue;	//ポインタ順のリスト
@@ -81,7 +81,7 @@ namespace TiGLiCS{
 			背景色を設定する。ただし、シーンマネージャが登録されている場合は<br>
 			事実上無効となる。
 		*/
-		void SetBackColor(CColor &col){BackColor=col;}	
+		void SetBackColor(Selene::CColor &col){BackColor=col;}	
 		
 		/**
 			@brief フレームマネージャの取得

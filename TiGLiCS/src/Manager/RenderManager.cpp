@@ -1,8 +1,9 @@
 #include "Manager/RenderManager.h"
 #include "Engine/Engine.h"
 
+using namespace Selene;
 using namespace TiGLiCS;
-using namespace Manager;
+using namespace TiGLiCS::Manager;
 
 CRenderManager * CRenderManager::Instance = new CRenderManager();
 
