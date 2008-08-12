@@ -1,11 +1,12 @@
-#include "Manager/Collision.h"
+#include "Manager/CollisionManager.h"
 #include "Objects/Sprite2D.h"
 #include "Engine/Engine.h"
+using namespace std;
+using namespace Selene;
 using namespace TiGLiCS;
-using namespace Manager;
+using namespace TiGLiCS::Manager;
 using namespace TiGLiCS::Collision2D;
 using namespace TiGLiCS::Object;
-using namespace std;
 void CPoint2DCollisionData::UpdatePos(){
 	//あたり判定用の位置を返す。
 	if(isAbsPos){//絶対座標なら

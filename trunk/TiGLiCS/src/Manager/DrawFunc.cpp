@@ -1,6 +1,7 @@
 #include "Manager/RenderManager.h"
 #include "Engine/Engine.h"
 
+using namespace Selene;
 using namespace TiGLiCS;
 using namespace TiGLiCS::Manager;
 //スプライト系----------------------------------------------------------------------------

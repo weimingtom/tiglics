@@ -1,6 +1,6 @@
 #pragma once
 #include "Base/Base.h"
-#include "Manager/Collision.h"
+#include "Manager/CollisionManager.h"
 #include "Objects/Object.h"
 //2Dスプライトオブジェクト
 namespace TiGLiCS{

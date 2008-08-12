@@ -1,5 +1,5 @@
 #include "Objects/Sprite2D.h"
-#include "Manager/Collision.h"
+#include "Manager/CollisionManager.h"
 #include "Engine/Engine.h"
 #include "Manager/PageManager.h"
 #include <cstdio>

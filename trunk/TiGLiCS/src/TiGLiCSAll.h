@@ -12,7 +12,7 @@
 #include "Manager/PageManager.h"
 #include "Manager/FrameManager.h"
 #include "Manager/FontManager.h"
-#include "Manager/Collision.h"
+#include "Manager/CollisionManager.h"
 
 //InterFace
 #include "Interface/Interface.h"

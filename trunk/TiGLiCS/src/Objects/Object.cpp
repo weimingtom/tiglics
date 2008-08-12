@@ -2,8 +2,9 @@
 #include "Manager/PageManager.h"
 #include "Manager/InputManager.h"
 #include "Engine/Engine.h"
+using namespace Selene;
 using namespace TiGLiCS;
-using namespace Object;
+using namespace TiGLiCS::Object;
 CObject::CObject(CPage *pPage,Sint32 ProcessPriority)
 	:CFiber(),pPage(pPage),ProcessPriority(ProcessPriority),WaitNum(0),bDead(false)
 {
