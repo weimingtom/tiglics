@@ -85,9 +85,7 @@ void CRenderManager::Begin(){
 	}
 }
 void CRenderManager::End(){
-#ifdef TIGLICS_DEBUG
 	Manager::CPageManager * pPageManager=Manager::CPageManager::GetInstance();
-#endif
 	//スプライトについて
 	for(tSpriteList2D::iterator it=SpriteList2D.begin();it!=SpriteList2D.end();++it){
 		it->second->pSpr->End();
@@ -138,19 +136,15 @@ void CRenderManager::End(){
 	//シーンについて
 	if(pSceneManager!=NULL){
 		pSceneManager->pScene->End();
-#ifdef TIGLICS_DEBUG
 		pPageManager->GetNowPage()->Log2Print(6,"RequestActor:%d",pSceneManager->pScene->GetResult_RenderingRequestActorCount());
-#endif
 
 	}
 
-#ifdef TIGLICS_DEBUG
 	pPageManager->GetNowPage()->Log2Print(4,"Sprite2D    :%d",SpriteList2D.size());
 	pPageManager->GetNowPage()->Log2Print(3,"FontSprite2D:%d",FontSpriteList2D.size());
 	pPageManager->GetNowPage()->Log2Print(2,"Primitive2D :%d",PrimitiveList2D.size());
 	pPageManager->GetNowPage()->Log2Print(1,"Line2D      :%d",LineList2D.size());
 	pPageManager->GetNowPage()->Log2Print(0,"Point2D     :%d",PointList2D.size());
-#endif
 }
 
 void CRenderManager::Rendering(){
@@ -159,6 +153,7 @@ void CRenderManager::Rendering(){
 	//描画順番は、
 	//sprite->point->line->primitive->FontSprite->PostEffect
 	//とする。	
+	CEngine * pEngine=CEngine::GetInstance();
 	Sint32 endFlag=0;
 	tSpriteList2D::iterator itSprite2D=SpriteList2D.begin();
 	tFontSpriteList2D::iterator itFontSprite2D=FontSpriteList2D.begin();
@@ -221,11 +216,11 @@ void CRenderManager::Rendering(){
 			case drPrimitive2D:itPrimitive2D->second ->pPrimitive->Rendering();++itPrimitive2D;break;
 			case drFontSprite2D:itFontSprite2D->second ->pFontSpr->Rendering();++itFontSprite2D;break;
 			case drScene:
-#ifdef TIGLICS_DEBUG
-				pSceneManager->pScene->Rendering(true);
-#else
-				pSceneManager->pScene->Rendering(false);
-#endif
+				if(pEngine->GetShowLog()){
+					pSceneManager->pScene->Rendering(true);
+				}else{
+					pSceneManager->pScene->Rendering(false);
+				}
 				break;
 			default:endFlag=1;
 		}

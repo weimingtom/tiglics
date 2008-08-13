@@ -31,7 +31,6 @@ namespace TiGLiCS{
 		void addObject();//実際の追加処理
 
 		//デバッグ用変数
-	#ifdef TIGLICS_DEBUG
 		LARGE_INTEGER   nFreq,t1,t2,t3,t4,t5,t6,t7;
 		Sint32 DataArr[32];//デバッグ用
 		
@@ -39,7 +38,6 @@ namespace TiGLiCS{
 		char log2_str[MAX_TASK_LOG_ROW][MAX_TASK_LOG_SIZE];
 		Sint32 NowLogRow;//どのログがもっとも新しいか
 
-	#endif
 
 	public:
 		CPage(Sint32 PageID){
@@ -48,14 +46,12 @@ namespace TiGLiCS{
 			pCollisionManager2D=new Manager::CCollisionManager2D(this);
 			pFrameManager=NULL;
 
-	#ifdef TIGLICS_DEBUG
 			//ログの初期化
 			this->NowLogRow=0;
 			for(Sint32 i=0;i<MAX_TASK_LOG_ROW;++i){
 				log_str[i][0]='\0';
 				log2_str[i][0]='\0';
 			}
-	#endif
 		}
 		~CPage(){Release();}
 		///ページIDを取得

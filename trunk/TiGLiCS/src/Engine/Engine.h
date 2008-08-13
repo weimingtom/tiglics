@@ -25,7 +25,7 @@ namespace TiGLiCS{
 		Selene::Peripheral::IKeyboard		*pKeyboard;		//キーボードデバイス
 		Selene::Renderer::CTextureConfig	Conf;			//テクスチャコンフィグ
 		
-
+		bool bShowLog;
 
 		Selene::Math::Point2DI ScreenSize;//スクリーンサイズ
 		Sint32 FrameRate;
@@ -42,6 +42,7 @@ namespace TiGLiCS{
 			pRender=NULL;
 			pMouse=NULL;
 			pKeyboard=NULL;
+			bShowLog=false;
 		}
 		//デストラクタ
 		~CEngine(){
@@ -98,8 +99,12 @@ namespace TiGLiCS{
 			Exec();
 			return pCore->Run();
 		}
-
-		
+		inline bool GetShowLog(){
+			return bShowLog;
+		}
+		inline void SetShowLog(bool state){
+			bShowLog=state;
+		}
 		//スクリーンサイズとフレームレート
 		Selene::Math::Point2DI GetScreenSize(){return ScreenSize;}
 		Sint32 GetFrameRate(){return FrameRate;}

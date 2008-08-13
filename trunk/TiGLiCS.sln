@@ -5,18 +5,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TiGLiCS", "TiGLiCS\TiGLiCS.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug_NoLog|Win32 = Debug_NoLog|Win32
 		Debug|Win32 = Debug|Win32
-		Release_NoLog|Win32 = Release_NoLog|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BFA2A898-4AAA-4ACC-BF9A-9BBEAF5756E0}.Debug_NoLog|Win32.ActiveCfg = Debug_NoLog|Win32
-		{BFA2A898-4AAA-4ACC-BF9A-9BBEAF5756E0}.Debug_NoLog|Win32.Build.0 = Debug_NoLog|Win32
 		{BFA2A898-4AAA-4ACC-BF9A-9BBEAF5756E0}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BFA2A898-4AAA-4ACC-BF9A-9BBEAF5756E0}.Debug|Win32.Build.0 = Debug|Win32
-		{BFA2A898-4AAA-4ACC-BF9A-9BBEAF5756E0}.Release_NoLog|Win32.ActiveCfg = Release_NoLog|Win32
-		{BFA2A898-4AAA-4ACC-BF9A-9BBEAF5756E0}.Release_NoLog|Win32.Build.0 = Release_NoLog|Win32
 		{BFA2A898-4AAA-4ACC-BF9A-9BBEAF5756E0}.Release|Win32.ActiveCfg = Release|Win32
 		{BFA2A898-4AAA-4ACC-BF9A-9BBEAF5756E0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
