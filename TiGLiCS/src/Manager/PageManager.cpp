@@ -57,7 +57,6 @@ void CPage::Exec(){
 	Renderer::IRender* pRender=pEngine->GetIRender();
 	Math::Point2DI ScreenSize=pEngine->GetScreenSize();
 
-#ifdef TIGLICS_DEBUG
 	Manager::CPageManager * pPageManager = Manager::CPageManager::GetInstance();
 	Sint32 FrameRate=pEngine->GetFrameRate();
 
@@ -67,7 +66,6 @@ void CPage::Exec(){
 	int tmp_stack_size=0;
 	Object::IObject * tpObj=NULL;
 	DataArr[2]=GetAddQueueNum();
-#endif
 	//もっとも最初に実行
 	if(pFrameManager!=NULL){
 		pFrameManager->BeforeProcess();
@@ -102,7 +100,6 @@ void CPage::Exec(){
 		}else{
 			(*it)->pObj->Draw();
 		}
-#ifdef TIGLICS_DEBUG
 		tmp_stack_size=(*it)->pObj->GetRestProcessStack();
 		if(Stack_Max>tmp_stack_size){
 			Stack_Max=tmp_stack_size;
@@ -111,13 +108,11 @@ void CPage::Exec(){
 		if(Stack_Min<tmp_stack_size){
 			Stack_Min=tmp_stack_size;
 		}
-#endif
 	}
 	if(pFrameManager!=NULL){
 		pFrameManager->AfterProcess();
 	}
 	pRenderManager->End();
-#ifdef TIGLICS_DEBUG
 	if(tpObj!=NULL && !tpObj->isDead() && Stack_Max<=0){
 		DMessageBox("Stack Over Frow!\nClass:%s\nAddress:%p\nStackRest:%x",typeid(*tpObj).name(),tpObj,tpObj->GetRestProcessStack());
 	}
@@ -127,30 +122,24 @@ void CPage::Exec(){
 	this->Log2Print(10,"MinStackRest:%08X",Stack_Max);
 	this->Log2Print(9,"MaxStackRest:%08X",Stack_Min);
 	this->Log2Print(8,"FreeStackNum:%08d",Object::CFiberMemoryManager::GetStackMemNum());
-
 	DataArr[3]=GetDeleteQueueNum();
-#endif
+
 
 	this->delObject();//オブジェクト解放処理
 
-	
-#ifdef TIGLICS_DEBUG
 	DataArr[0]=GetObjectNum();
-	QueryPerformanceCounter(&t2);;
-#endif	
+	QueryPerformanceCounter(&t2);
 	
 	static Sint32 GCFrameCount=0;
 	static char buf[256]={'\0'};
-#ifdef TIGLICS_DEBUG
+
 	static Sint32 FrameCount=0;
 	const Sint32 SamplingRate=6;
 	static double dtime[32]={0};//デバッグ用
-#endif
+
 	
 
-#ifdef TIGLICS_DEBUG
 	QueryPerformanceCounter(&t3);
-#endif	
 
 	//描画実行
 	/////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,40 +155,40 @@ void CPage::Exec(){
 
 	//スプライトマネージャ描画
 	pRenderManager->Rendering();
-#ifdef TIGLICS_DEBUG
-	//ログ文字列作成
-	Sint32 totalLineNum=0;
-	for(Sint32 i=MAX_TASK_LOG_ROW-1;i>=0;--i){
-		Sint32 linenum=1,loglen;
-		Sint32 idx=(i+NowLogRow+1)%MAX_TASK_LOG_ROW;
-		loglen=strlen(log_str[idx]);
-		for(Sint32 j=0;j<loglen;++j){
-			if(log_str[idx][j]=='\n')
-				++linenum;
+	if(pEngine->GetShowLog()){
+		//ログ文字列作成
+		Sint32 totalLineNum=0;
+		for(Sint32 i=MAX_TASK_LOG_ROW-1;i>=0;--i){
+			Sint32 linenum=1,loglen;
+			Sint32 idx=(i+NowLogRow+1)%MAX_TASK_LOG_ROW;
+			loglen=strlen(log_str[idx]);
+			for(Sint32 j=0;j<loglen;++j){
+				if(log_str[idx][j]=='\n')
+					++linenum;
+			}
+			pRender->DebugPrint(Math::Point2DI(5,ScreenSize.y-5-12*(linenum+totalLineNum)),CColor(255,128,128,255),log_str[idx]);	
+			totalLineNum+=linenum;
 		}
-		pRender->DebugPrint(Math::Point2DI(5,ScreenSize.y-5-12*(linenum+totalLineNum)),CColor(255,128,128,255),log_str[idx]);	
-		totalLineNum+=linenum;
-	}
-	//ログ文字列作成2
-	totalLineNum=0;
-	for(Sint32 i=0;i<MAX_TASK_LOG_ROW;++i){
-		Sint32 linenum=1,loglen;
-		Sint32 idx=(0+i)%MAX_TASK_LOG_ROW;
-		loglen=strlen(log2_str[idx]);
-		for(Sint32 j=0;j<loglen;++j){
-			if(log2_str[idx][j]=='\n')
-				++linenum;
+		//ログ文字列作成2
+		totalLineNum=0;
+		for(Sint32 i=0;i<MAX_TASK_LOG_ROW;++i){
+			Sint32 linenum=1,loglen;
+			Sint32 idx=(0+i)%MAX_TASK_LOG_ROW;
+			loglen=strlen(log2_str[idx]);
+			for(Sint32 j=0;j<loglen;++j){
+				if(log2_str[idx][j]=='\n')
+					++linenum;
+			}
+			pRender->DebugPrint(Math::Point2DI(ScreenSize.x-170,ScreenSize.y-5-12*(linenum+totalLineNum)),CColor(255,128,128,255),log2_str[idx]);	
+			totalLineNum+=linenum;
 		}
-		pRender->DebugPrint(Math::Point2DI(ScreenSize.x-170,ScreenSize.y-5-12*(linenum+totalLineNum)),CColor(255,128,128,255),log2_str[idx]);	
-		totalLineNum+=linenum;
-	}
 
-	//デバッグ情報出力
-	pRender->DebugPrint(Math::Point2DI(ScreenSize.x-270,0),CColor(255,128,128,255),buf);		
-	pRender->DebugPrint(Math::Point2DI(0,0),Selene::CColor(255,255,255,255),
-		"ObjectNum:%d\nAddQueue=%d DeleteQueue=%d",
-	DataArr[0],DataArr[2],DataArr[3]);
-#endif
+		//デバッグ情報出力
+		pRender->DebugPrint(Math::Point2DI(ScreenSize.x-270,0),CColor(255,128,128,255),buf);		
+		pRender->DebugPrint(Math::Point2DI(0,0),Selene::CColor(255,255,255,255),
+			"ObjectNum:%d\nAddQueue=%d DeleteQueue=%d",
+		DataArr[0],DataArr[2],DataArr[3]);
+	}
 	// 画面への描画を完了
 	//  Renderer::IRenderインターフェイスに対して、
 	//  画面への描画が完了したことを通知します。
@@ -210,7 +199,7 @@ void CPage::Exec(){
 		pRenderManager->GabageCollection(1);
 		Object::CFiberMemoryManager::GCStackMem(Sint32(Object::CFiberMemoryManager::GetStackMemNum()/16.0));
 	}
-#ifdef TIGLICS_DEBUG
+
 	t7=t6;
 	QueryPerformanceCounter(&t6); 
 	QueryPerformanceCounter(&t4); 
@@ -251,7 +240,6 @@ void CPage::Exec(){
 				dtime[3],dtime[11],
 				dtime[12],dtime[14]
 	);
-#endif
 }
 
 void CPage::Release(){
@@ -278,18 +266,14 @@ void CPage::Release(){
 }
 
 void CPage::LogPrint(const char *src,...){
-#ifdef TIGLICS_DEBUG
 	va_list args;
 	va_start(args,src);
 	vsnprintf(log_str[(++NowLogRow)%MAX_TASK_LOG_ROW],(size_t)MAX_TASK_LOG_SIZE,src,args);
-#endif
 }
 void CPage::Log2Print(Sint32 LineNum,const char *src,...){
-#ifdef TIGLICS_DEBUG
 	va_list args;
 	va_start(args,src);
 	vsnprintf(log2_str[LineNum],(size_t)MAX_TASK_LOG_SIZE,src,args);
-#endif
 }
 
 void CPageManager::Exec(){
